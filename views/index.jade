@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #`{title}
+  input#fileupload(type='file', name='files[]', data-url='/upload', multiple='')
+  script(type = 'text/javascript').
+    var url = window.location.hostname;
+    $('#fileupload').fileupload({dataType: 'json'}, done: function (e, data) {
+        $.each(data.result.files, function (index, file) {
+            $('<p/>').text(file.name).appendTo('#files');
+        });
+    });
+  #files
+
